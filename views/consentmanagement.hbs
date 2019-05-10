@@ -1,0 +1,66 @@
+{{#if userContext}}
+<script>
+  console.log("{{userContext.userinfo.given_name}}")
+  console.dir("{{userContext.userinfo.id_token}}")
+
+</script>
+
+<div style="background-color:#00559c;color:white;margin-bottom:50px;padding-top:10px;">
+   <div class="container" >
+      <div class="row">
+         <div class="col-8">
+            <h2 class="text-left">Hi {{userContext.userinfo.given_name}}!</h2>
+         </div>
+         <div class="col-4"></div>
+      </div>
+   </div>
+</div>
+
+<div>
+   <div class="container" >
+      <div class="row">
+         <div class="col-10">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Grant</th>
+                  
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each grants}}
+                <tr>
+                  <th>{{_links.scope.title}}</th>
+                  <td>
+                    <form action="/revokeGrant" method="post">
+                      <input type="hidden" name="grantId" value="{{this.id}}" /> 
+                      <button type="submit" class="btn btn-sm btn-outline-secondary" >Revoke</button>
+                    </form>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+        </div>
+     </div>
+  </div>
+</div>
+
+
+{{else}}
+<div id="maindiv">
+   <div id="header">
+   </div>
+   <div id="seconddiv">
+   </div>
+</div>
+
+<script>
+// alert("this is some javascript!")
+  
+  $("#test").html("jquery works!")
+  
+</script>
+{{/if}}
+

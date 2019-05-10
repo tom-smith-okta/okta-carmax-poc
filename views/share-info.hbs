@@ -1,0 +1,53 @@
+
+{{#if userContext}}
+<script>
+  console.log("{{userContext.userinfo.given_name}}")
+  console.dir("{{userContext.userinfo.id_token}}")
+
+</script>
+
+<div style="background-color:#00559c;color:white;margin-bottom:50px;padding-top:10px;">
+   <div class="container" >
+      <div class="row">
+         <div class="col-8">
+            <h2 class="text-left">Hi {{userContext.userinfo.given_name}}!</h2>
+         </div>
+         <div class="col-4"></div>
+      </div>
+   </div>
+</div>
+
+<div class="container">
+
+  <p>Share info about your vehicles</p>
+  
+  <p>
+    Who would you like to share info with?
+  </p>
+  
+  <form action = "/share-info" method = "post">
+
+      <p>
+        email address:
+      </p><input type = "text">
+
+      <p>share your vehicles? <input type = "checkbox" name = "share_vehicles"></p>
+      <p>share your pre-qual/finance status? <input type = "checkbox" name = "share_finance_info"></p> 
+
+      <input type="submit">
+
+  </form>
+
+</div>
+
+
+{{else}}
+<div id="maindiv">
+   <div id="header">
+   </div>
+   <div id="seconddiv">
+   </div>
+</div>
+
+{{/if}}
+

@@ -1,0 +1,67 @@
+{{#if userContext}}
+<script>
+  console.log("{{userContext.userinfo.given_name}}")
+  console.dir("{{userContext.userinfo.id_token}}")
+
+</script>
+
+<div style="background-color:#00559c;color:white;margin-bottom:50px;padding-top:10px;">
+   <div class="container" >
+      <div class="row">
+         <div class="col-8">
+            <h2 class="text-left">Hi {{userContext.userinfo.given_name}}!</h2>
+         </div>
+         <div class="col-4"></div>
+      </div>
+   </div>
+</div>
+
+<div>
+   <div class="container" >
+      <div class="row">
+         <div class="col-10">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Username</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone Number</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each users}}
+                <tr>
+                  <th>{{profile.login}}</th>
+                  <td>{{profile.email}}</td>
+                  <td>{{profile.mobilePhone}}</td>
+                  <td>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+        </div>
+     </div>
+  </div>
+</div>
+
+
+{{else}}
+<div id="maindiv">
+   <div id="header">
+   </div>
+   <div id="seconddiv">
+   </div>
+</div>
+
+<script>
+// alert("this is some javascript!")
+  
+  $("#test").html("jquery works!")
+  
+</script>
+{{/if}}
+

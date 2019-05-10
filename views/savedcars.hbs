@@ -1,0 +1,204 @@
+
+
+{{#if userContext}}
+<div style="background-color:#00559c;color:white;margin-bottom:50px;padding-top:10px;">
+   <div class="container" >
+      <div class="row">
+         <div class="col-8">
+            <h2 class="text-left">Hi {{greeting_name}}!</h2>
+         </div>
+         <div class="col-4"></div>
+      </div>
+   </div>
+</div>
+<div class="container" >
+   <div class="row">
+      <div class="col-7">
+         <figure class="item">
+            
+                      <img class="rounded img-fluid" style="max-width:100%;" src="{{index_img_url}}" />
+
+<!--            <img class="rounded img-fluid" style="max-width:100%;" src="https://cdn.glitch.com/bb25f7a0-0f2b-4f20-bdb3-8c401691d212%2FA-fluffy-cat-looking-funny-surprised-or-concerned.jpg?1552446465286" /> -->
+            <figcaption class="caption"></figcaption>
+         </figure>
+      </div>
+      <div class="col-5">
+         <div>
+            <div class="container">
+              {{#if userContext.userinfo.given_name}}
+               <div class="row">
+                  <div class="col" style="font-size:12px;margin:0;height:1px;">
+                     First Name
+                  </div>
+                  <div class="col" style="font-size:12px;">
+                     Last Name
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col" style="font-size:42px;color:#00559c">
+                     {{userContext.userinfo.given_name}}
+                  </div>
+                  <div class="col" style="font-size:42px;color:#00559c">
+                     {{userContext.userinfo.family_name}}
+                  </div>
+               </div>
+               {{/if}}
+               <div class="row">
+                  <div class="col-3">
+                     <img src="https://cdn.glitch.com/bb25f7a0-0f2b-4f20-bdb3-8c401691d212%2Flogin.png?1552489793348" style="width:100%;" />
+                  </div>
+                  <div class="col-9">
+                     <p style="margin:0;padding-top:15px;font-size:12px;margin-bottom:-8px;">
+                        Login
+                     </p>
+                     <p style="margin:0;font-size:25px;"> 
+                        {{userContext.userinfo.preferred_username}}
+                     </p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-3">
+                     <img src="https://cdn.glitch.com/bb25f7a0-0f2b-4f20-bdb3-8c401691d212%2Femail.png?1552489793365" style="width:100%;" />
+                  </div>
+                  <div class="col-9">
+                     <p style="margin:0;padding-top:15px;font-size:12px;margin-bottom:-8px;">
+                        Email
+                     </p>
+                     <p style="margin:0;font-size:25px;"> 
+                        {{userContext.userinfo.email}}
+                     </p>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-3">
+                     <img src="https://cdn.glitch.com/bb25f7a0-0f2b-4f20-bdb3-8c401691d212%2Finfo.png?1552489793384" style="width:100%;" />
+                  </div>
+                  <div class="col-9">
+                     <p style="margin:0;padding-top:15px;font-size:12px;margin-bottom:-8px;">
+                        User ID
+                     </p>
+                     <p style="margin:0;font-size:25px;"> 
+                        {{userContext.userinfo.sub}}
+                     </p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="d-flex justify-content-center">
+      <p >
+      </p>
+   </div>
+</div>
+<!--<div class="container" style="margin-top:50px;" >
+  <div class="row">
+      <div class="col-12" style="background:#ffd342;color:#00559c;word-wrap:break-word;">
+          <h1 class="text-center">
+            ID Token Payload
+        </h1>
+      </div>
+  </div>
+</div>
+<div style="background:#eee;">
+  <div class="container" style="background:white;border:solid 1px ;margin-top:25px;margin-bottom:300px;">
+      <div class="col-12" style="color:#000;word-wrap:break-word;padding-top:25px;">
+              <textarea id="idTokenText" style="width:100%;min-height:500px;border:none;">
+                {{payload}}
+        </textarea>
+        <script>
+          var obj = JSON.parse(document.getElementById('idTokenText').value);
+          var pretty = JSON.stringify(obj, undefined, 4);
+          document.getElementById('idTokenText').value = pretty;
+        </script>
+        </div>
+    </div>
+  </div>-->
+
+{{else}}
+<div id="maindiv">
+   <div id="header">
+   </div>
+   <div id="seconddiv">
+   </div>
+</div>
+
+<!-- js to send saved car to register -->
+
+<script>
+var saveCar = function(saveEvent) {
+  $('#lightRegModal').modal('show');
+  var carId = $(saveEvent).parent().parent().parent().parent().attr("data-id")
+  $('input[name="savedCarId"]').val(carId)
+}
+</script>
+
+<!-- Light Registration Modal -->
+<div class="modal fade" id="lightRegModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="lightRegModalLabel">Register Now</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/register" method="post">
+            {{#each fields}}
+            <div class="form-group">
+               <label>{{this.label}}</label>
+               <input
+                  required
+                  name="{{this.name}}"
+                  type="{{this.type}}"
+                  class="form-control {{#if this.error}}is-invalid{{/if}}"
+                  value="{{this.value}}"
+                  />
+              <input type="hidden" name="savedCarId" value="">
+               <div class="invalid-feedback">{{this.error}}</div>
+            </div>
+            {{/each}}
+            <button type="submit" class="btn btn-primary">Register</button>
+         </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+
+
+
+<!-- Button trigger modal -->
+<div class="album py-5 bg-light">
+        <div class="container">
+
+          <div class="row"> 
+            {{#each savedcars}}
+            <div class="col-md-4">
+              <div data-id="73421" class="card mb-4 box-shadow">
+       
+                <img class="card-img-top" src="https://cdn.glitch.com/41212c64-b2ea-4c38-87ec-58a512d6309e%2FCR-Cars-InlineHero-ComingSoon-Toyota-Supra-2-19.jpeg?1556761243334" alt="Card image cap"> <span class="badge badge-light">4</span>
+                <div class="card-body">
+                  <h3>
+                    {{title}}
+                  </h3>
+                  <h4 class="card-text">{{price}}|| {{miles}}</h4>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary" onclick="saveCar(this)">Save for later</button>
+                      <button type="button" class="btn btn-sm btn-outline-secondary">Alert Me</button>
+                    </div>
+                    <small class="text-muted">9 mins</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+
